@@ -149,6 +149,14 @@ resource "aws_s3_bucket" "s3bucket2" {
   ]
 }
 
+resource "aws_s3_bucket" "s3bucket3" {
+  bucket        = "k8s-${random_string.s3name.result}"
+  force_destroy = true
+  depends_on = [
+    random_string.s3name
+  ]
+}
+
 resource "aws_instance" "ec2_instance_msr" {
   ami                         = var.ami_id
   subnet_id                   = aws_subnet.public_subnet.id
